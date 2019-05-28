@@ -40,13 +40,12 @@ class HomeViewController: UIViewController, UITableViewDelegate ,UITableViewData
     
     @IBOutlet weak var myTableView: UITableView!
     
-    //override func vi
     
     override func viewDidLoad() {
+        SVProgressHUD.show()
         self.getCountries()
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
-        SVProgressHUD.dismiss()
         
     }
     
@@ -79,6 +78,8 @@ class HomeViewController: UIViewController, UITableViewDelegate ,UITableViewData
                 listOfCountries.append(title)
                }
             self.myTableView.reloadData()
+            SVProgressHUD.dismiss()
+
          } catch{
             print("error")
         }

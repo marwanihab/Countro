@@ -69,7 +69,7 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDe
                 return
             }
             else{
-                
+
                 self.performSegue(withIdentifier: "goToHome", sender: self)
             }
             
@@ -87,6 +87,11 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDe
         
         fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
              SVProgressHUD.show()
+            
+            
+            if result?.isCancelled == true {
+                SVProgressHUD.dismiss()
+            }
             if let error = error {
                 SVProgressHUD.dismiss()
                 print("Failed to login: \(error.localizedDescription)")
@@ -119,6 +124,7 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDe
                 }
                 else{
                     
+
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 }
                 
@@ -148,6 +154,7 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDe
             Auth.auth().createUser(withEmail: emailText.text!, password: PasswordText.text!) {(user, error) in
                 
                 if error == nil {
+
                     //print("here too")
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 }

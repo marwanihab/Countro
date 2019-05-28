@@ -47,8 +47,9 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-         SVProgressHUD.show()
         
+        SVProgressHUD.show()
+
         if let error = error {
             SVProgressHUD.dismiss()
             print("erro is found\(error)")
@@ -71,7 +72,7 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
                 return
             }
             else{
-                
+
                 self.performSegue(withIdentifier: "goToHome", sender: self)
             }
             
@@ -89,6 +90,11 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
         
         fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
              SVProgressHUD.show()
+            
+            if result?.isCancelled == true {
+                SVProgressHUD.dismiss()
+            }
+            
             if let error = error {
                  SVProgressHUD.dismiss()
                 print("Failed to login: \(error.localizedDescription)")
@@ -107,8 +113,12 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
                 return
             }
             
+           
+            
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
             Auth.auth().signIn(with: credential) { (user, error) in
+                
+                
                 if let error = error {
                     SVProgressHUD.dismiss()
                     print("Login error: \(error.localizedDescription)")
@@ -120,7 +130,7 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
                     return
                 }
                 else{
-                    
+
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 }
                 
@@ -138,6 +148,8 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
         
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (user, error) in
             if error == nil{
+                SVProgressHUD.dismiss()
+
                 self.performSegue(withIdentifier: "goToHome", sender: self)
             }
             else{
@@ -154,7 +166,7 @@ class ViewController: UIViewController , GIDSignInUIDelegate,  GIDSignInDelegate
     }
     
     @IBAction func signUP(_ sender: UIButton) {
-        
+
         performSegue(withIdentifier: "goTosignup", sender: self)
     }
 }
