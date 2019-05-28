@@ -1,0 +1,6 @@
+framework module Pods_CountriesTask {
+  umbrella header "Pods-CountriesTask-umbrella.h"
+
+  export *
+  module * { export * }
+}
