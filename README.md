@@ -28,6 +28,7 @@ $ pod install
 ```
 
 
+![](Demo.gif)
 
 
 License
