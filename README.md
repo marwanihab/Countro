@@ -28,7 +28,7 @@ $ pod install
 ```
 
 
-![](demo.gif)
+![](demo2.gif)
 
 
 License
